@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+IFS=''
+while read line
+do
+  echo "${line}" | sed "s~$IMAGE_IDENTIFIER: .*~$IMAGE_IDENTIFIER: $IMAGE_TAG~"
+done < "${1:-/dev/stdin}"

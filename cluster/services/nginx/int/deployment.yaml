@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-demo
+  labels:
+    app: nginx
+    instance: nginx-demo
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx
+      instance: nginx-demo
+  template:
+    metadata:
+      labels:
+        app: nginx
+        instance: nginx-demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
+        env:
+          - name: EXAMPLE_NGINX_IMAGE
+            valueFrom:
+              configMapKeyRef:
+                name: images
+                key: example-nginx
